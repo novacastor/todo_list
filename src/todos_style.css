@@ -1,0 +1,102 @@
+.sidebar--todos {
+    width: 280px;
+    /* Inverted: Background is now the lighter content color */
+    background-color: var(--app-background); 
+    color: var(--accent-brown);
+    padding: 20px 16px;
+    font-family: 'Inter', system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    /* Boundary border similar to utilities section */
+    border-right: 1.5px solid rgba(0, 0, 0, 0.1);
+    border-left:  1.5px solid rgba(0, 0, 0, 0.1);
+}
+
+.project {
+    width: 100%;
+    background-color: var(--content-background);
+    padding: 20px;
+    border-radius: 14px;
+    border: 1px solid rgba(115, 92, 56, 0.1);
+}
+
+.section {
+    margin-bottom: 24px;
+}
+
+.section h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.section-add {
+    background: none;
+    border: none;
+    color: var(--accent-green);
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.event-list li,
+.task-list li {
+    padding: 8px 0;
+    color: var(--accent-brown);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.task-list label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.task-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent-green);
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.task-list input:checked + span {
+    text-decoration: line-through;
+    color: #9a998a;
+    opacity: 0.6;
+}
+
+/* Floating Add Button remains consistent with theme */
+.add-project {
+    margin-top: auto;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    background-color: var(--button-background);
+    color: var(--content-background); /* Use light color for contrast */
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+}
+
+.add-project:hover {
+    transform: scale(1.1);
+    background-color: #333;
+}

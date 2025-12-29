@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOTODO</title>
+</head>
+<body>
+<body>
+  <div class="app-layout">
+
+    <aside class="sidebar sidebar--projects">
+        
+        <!-- Logo Section -->
+        <div class="sidebar__logo">
+            <img src="./images/app.svg" alt="logo" class="logo">
+        </div>
+
+        <!-- Projects Section -->
+        <h2>Projects</h2>
+        <nav class="project-list">
+            <ul>
+                <li class="project-card">Project1</li>
+                <li class="project-card">Project2</li>
+                <li class="project-card">Project3</li>
+                <li class="project-card">Project4</li>
+            </ul>
+        </nav>
+
+        <!-- Profile Section -->
+        <div class="sidebar__profile">
+            JAMES
+        </div>
+
+    </aside>
+
+
+    <aside class="sidebar sidebar--todos">
+        <div class="project">
+            <div class="section event-section">
+                <h3>
+                    Events
+                    <button class="section-add" aria-label="Add event">+</button>
+                </h3>
+                <ul class="event-list">
+                    <li>Event 1</li>
+                    <li>Event 2</li>
+                    <li>Event 3</li>
+                    <li>Event 4</li>
+                </ul>
+            </div>
+
+            <div class="section task-section">
+                <h3>
+                    Tasks
+                    <button class="section-add" aria-label="Add task">+</button>
+                </h3>
+                <ul class="task-list">
+                    <li>
+                        <label>
+                            <input type="checkbox" class="task-checkbox">
+                            <span>Wake Up at 8</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" class="task-checkbox">
+                            <span>Make Tea</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" class="task-checkbox">
+                            <span>Clean Room Before 10</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" class="task-checkbox">
+                            <span>Do 10 DSA problems</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" class="task-checkbox">
+                            <span>Study TOP</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" class="task-checkbox">
+                            <span>Finish dinner before 10</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <button class="add-project" aria-label="Add project">+</button>
+    </aside>
+    <main class="content">
+        <div class="content-heading-container">
+            <div class="heading-date-container">May 2025</div>
+            <div class="project-heading"><h1>ProjectN</h1></div>
+            <div class="heading-spacer"></div>
+        </div>
+    </main>
+
+
+<aside class="sidebar sidebar--utilities">
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <h2>Calendar</h2>
+        </div>
+        
+        <div class="calendar-grid">
+            <div class="day-label">Sun</div>
+            <div class="day-label">Mon</div>
+            <div class="day-label">Tue</div>
+            <div class="day-label">Wed</div>
+            <div class="day-label">Thu</div>
+            <div class="day-label">Fri</div>
+            <div class="day-label">Sat</div>
+
+            <div class="date p-month">31</div>
+            <div class="date">1</div>
+            <div class="date">2</div>
+            <div class="date current-day">3</div>
+            <div class="date">4</div>
+            <div class="date">5</div>
+            <div class="date">6</div>
+            <div class="date">7</div>
+            <div class="date">8<span class="dot brown"></span></div>
+            <div class="date">9<span class="dot green"></span></div>
+            <div class="date">10</div>
+            <div class="date">11<span class="dot blue"></span><span class="dot brown"></span></div>
+            <div class="date">12<span class="dot brown"></span><span class="dot green"></span></div>
+            <div class="date">13</div>
+            <div class="date">14</div>
+            <div class="date">15</div>
+            <div class="date">16</div>
+            <div class="date">17</div>
+            <div class="date">18</div>
+            <div class="date">19</div>
+            <div class="date">20</div>
+            <div class="date">21</div>
+            <div class="date">22<span class="dot green"></span><span class="dot blue"></span></div>
+            <div class="date">23</div>
+            <div class="date">24</div>
+            <div class="date">25</div>
+            <div class="date">26</div>
+            <div class="date">27</div>
+            <div class="date">28</div>
+            <div class="date">29</div>
+            <div class="date">30</div>
+            <div class="date n-month">1</div>
+            <div class="date n-month">2</div>
+            <div class="date n-month">3</div>
+            <div class="date n-month">4</div>
+        </div>
+    </div>
+    
+    <div class="utilities">
+        <div class="stats-card">
+            <h3>Task Overview</h3>
+            <div class="stat-item">
+                <span class="stat-label">Pending</span>
+                <span class="stat-value">12</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Completed</span>
+                <span class="stat-value completed">45</span>
+            </div>
+            <div class="stat-bar-container">
+                <div class="stat-bar-fill" style="width: 79%;"></div>
+            </div>
+            <p class="stat-footer">79% of monthly goal reached</p>
+        </div>
+
+        <div class="stats-card">
+            <h3>Project Status</h3>
+            <div class="project-stat">
+                <div class="project-dot green"></div>
+                <span>3 Active Projects</span>
+            </div>
+            <div class="project-stat">
+                <div class="project-dot brown"></div>
+                <span>1 On Hold</span>
+            </div>
+        </div>
+    </div>
+</aside>
+
+  </div>
+</body>
+</html>

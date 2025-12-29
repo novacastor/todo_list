@@ -1,0 +1,117 @@
+[
+  {
+    "id": "event-001",
+    "type": "event",
+    "date": "2025-05-03",
+    "title": "Design Workshop",
+    "description": "Deep dive into the new design system components.",
+    "time": { "start": "10:00", "end": "12:00" },
+    "location": "Conference Room A",
+    "project_name": "Personal"
+  },
+  {
+    "id": "event-002",
+    "type": "event",
+    "date": "2025-05-03",
+    "title": "Client Kickoff",
+    "description": "Initial meeting with stakeholders for the new phase.",
+    "time": { "start": "14:00", "end": "15:30" },
+    "location": "Zoom / Virtual",
+    "project_name": "Personal"
+  },
+  {
+    "id": "event-003",
+    "type": "event",
+    "date": "2025-05-04",
+    "title": "Team Lunch",
+    "description": "Monthly social gathering for the development team.",
+    "time": { "start": "12:30", "end": "13:30" },
+    "location": "The Green Cafe",
+    "project_name": "Personal"
+  },
+  {
+    "id": "event-004",
+    "type": "event",
+    "date": "2025-05-05",
+    "title": "Security Audit",
+    "description": "Reviewing server logs and access protocols.",
+    "time": { "start": "09:00", "end": "11:00" },
+    "location": "IT Operations Room",
+    "project_name": "Personal"
+  },
+  {
+    "id": "event-005",
+    "type": "event",
+    "date": "2025-05-06",
+    "title": "Tech Conference",
+    "description": "Attending the local 'Frontend Futures' event.",
+    "time": { "start": "09:00", "end": "17:00" },
+    "location": "City Convention Center",
+    "project_name": "Personal"
+  },
+  {
+    "id": "task-001",
+    "type": "task",
+    "date": "2025-05-03",
+    "title": "Code Review",
+    "description": "Review pull requests for the authentication module.",
+    "status": "pending",
+    "priority": "high",
+    "project_name": "Personal",
+    "start_time": "10:00",
+    "end_time": "12:00",
+    "extra": "GitHub PRs"
+  },
+  {
+    "id": "task-002",
+    "type": "task",
+    "date": "2025-05-03",
+    "title": "Update README",
+    "description": "Add installation steps for the new local environment.",
+    "status": "completed",
+    "priority": "low",
+    "project_name": "Personal",
+    "start_time": "14:30",
+    "end_time": "15:30",
+    "extra": "Documentation"
+  },
+  {
+    "id": "task-003",
+    "type": "task",
+    "date": "2025-05-04",
+    "title": "Buy Groceries",
+    "description": "Need milk, eggs, and bread for the week.",
+    "status": "pending",
+    "priority": "medium",
+    "project_name": "Personal",
+    "start_time": "08:00",
+    "end_time": "09:30",
+    "extra": "Local Store"
+  },
+  {
+    "id": "task-004",
+    "type": "task",
+    "date": "2025-05-05",
+    "title": "DSA Linked Lists",
+    "description": "Solve 5 problems involving doubly linked lists.",
+    "status": "pending",
+    "priority": "medium",
+    "project_name": "Personal",
+    "start_time": "19:00",
+    "end_time": "21:00",
+    "extra": "LeetCode"
+  },
+  {
+    "id": "task-005",
+    "type": "task",
+    "date": "2025-05-06",
+    "title": "Backup Database",
+    "description": "Ensure the weekly backup is successfully stored offsite.",
+    "status": "pending",
+    "priority": "high",
+    "project_name": "Personal",
+    "start_time": "23:00",
+    "end_time": "23:45",
+    "extra": "AWS Console"
+  }
+]

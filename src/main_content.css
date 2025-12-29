@@ -1,0 +1,197 @@
+.content {
+    flex: 1;
+    padding: 30px 50px;
+    background-color: var(--app-background);
+    font-family: system-ui, sans-serif;
+    overflow-y: auto;
+}
+
+/* ---------- Heading (Centered Project Name) ---------- */
+.content-heading-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-bottom: 15px;
+}
+
+.heading-date-container, .heading-spacer {
+    flex: 1; 
+}
+
+.heading-date-container {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+}
+
+.project-heading h1 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #000;
+    text-align: center;
+    margin: 0;
+}
+
+/* ---------- Day Layout ---------- */
+.day-section {
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1.5px solid rgba(0, 0, 0, 0.1);
+}
+
+.day-container {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.day-left {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    width: 220px; 
+    flex-shrink: 0;
+}
+
+.day-number {
+    font-size: 80px;
+    font-weight: 800;
+    line-height: 0.75;
+    color: #000;
+}
+
+.day-name {
+    font-size: 32px;
+    color: var(--accent-red);
+    font-weight: 800;
+    margin-top: 12px;
+}
+
+/* ---------- Todo Cards Container ---------- */
+.day-todos {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 900px;
+}
+
+/* ---------- Shared Card Styles ---------- */
+.todo-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 15px 25px;
+    background-color: var(--content-background);
+    border-radius: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    transition: transform 0.2s ease;
+}
+
+.todo-time {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 8px;
+    min-width: 135px;
+}
+
+.time-range {
+    font-weight: 700;
+    font-size: 18px;
+    color: #000;
+}
+
+.time-dash {
+    color: #888;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.todo-details {
+    flex: 1;
+    padding-left: 20px;
+    border-left: 3px solid transparent; 
+}
+
+.todo-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 2px;
+}
+
+.todo-description {
+    font-size: 17px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 4px;
+}
+
+.todo-type {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent-brown);
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+/* ---------- Type Modifiers (Borders) ---------- */
+.todo-item.type-task .todo-details {
+    border-left-color: var(--accent-green);
+}
+
+.todo-item.type-event .todo-details {
+    border-left-color: var(--accent-blue);
+}
+
+.event-location {
+    font-size: 17px; /* Matches description size */
+    font-weight: 700;
+    color: #000; /* Keeping font style consistent with tasks */
+    margin-bottom: 4px;
+}
+
+/* ---------- Priority & Title Colors ---------- */
+
+/* High Priority (Red) */
+.todo-item:has(.high) .todo-title { color: var(--accent-red); }
+.todo-priority.high {
+    background-color: #ffebee;
+    color: var(--accent-red);
+}
+
+/* Medium Priority (Blue) */
+.todo-item:has(.medium) .todo-title { color: var(--accent-blue); }
+.todo-priority.medium {
+    background-color: #e3f2fd;
+    color: var(--accent-blue);
+}
+
+/* Low Priority (Green) */
+.todo-item:has(.low) .todo-title { color: var(--accent-green); }
+.todo-priority.low {
+    background-color: #e8f5e9;
+    color: var(--accent-green);
+}
+
+/* Priority Tag Base */
+.todo-priority {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    width: fit-content;
+}
+
+/* Title modifier for "working" status - overrides priority color */
+.todo-title.working {
+    color: var(--accent-brown) !important;
+}
+
+.todo-item:has(.todo-title.working) .todo-details {
+    border-left-color: var(--accent-brown);
+}
