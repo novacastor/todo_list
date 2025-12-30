@@ -4,7 +4,6 @@
     background-color: var(--app-background); 
     color: var(--accent-brown);
     padding: 20px 16px;
-    font-family: 'Inter', system-ui, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,6 +23,8 @@
 
 .section {
     margin-bottom: 24px;
+    max-height: 310px;
+    overflow-y: auto;
 }
 
 .section h3 {
@@ -46,6 +47,7 @@
     font-weight: bold;
     cursor: pointer;
     line-height: 1;
+    margin-right: 20px;
 }
 
 .event-list li,
@@ -54,6 +56,10 @@
     color: var(--accent-brown);
     font-weight: 600;
     font-size: 14px;
+}
+
+.event-section .section-add {
+    
 }
 
 .task-list label {
@@ -76,6 +82,21 @@
     text-decoration: line-through;
     color: #9a998a;
     opacity: 0.6;
+}
+.mark-complete{
+    padding: 10px 20px;
+    font-size: large;
+    border-radius: 10px;
+    border: 1px solid var(--accent-blue);
+    font-weight: 800;
+    color: var(--accent-green);
+}
+.mark-complete:hover{
+    background:var(--accent-green);
+    color: var(--app-background);
+}
+.mark-complete:active{
+    padding: 11px 21px;
 }
 
 /* Floating Add Button remains consistent with theme */

@@ -1,0 +1,63 @@
+/* The dim background layer */
+.form-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px); /* Optional: adds a modern blur */
+    z-index: 1000;
+}
+
+/* Base modal container for both forms */
+.modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    width: 420px;
+    background-color: var(--content-background);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Unified layout elements */
+.field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.form-controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+/* Common Input Styling */
+.modal-container input, 
+.modal-container select, 
+.modal-container textarea {
+    padding: 10px;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 6px;
+    background: var(--app-background);
+    font-family: inherit;
+    font-weight: 600;
+}
+
+.hidden { display: none !important; }

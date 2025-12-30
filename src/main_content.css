@@ -12,7 +12,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 3px solid rgba(0,0,0);
     padding-bottom: 15px;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .project-heading h1 {
-    font-size: 22px;
+    font-size: 32px;
     font-weight: 800;
     color: #000;
     text-align: center;

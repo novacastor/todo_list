@@ -1,0 +1,35 @@
+#task-entry-form {
+    border-top: 5px solid var(--accent-green);
+}
+
+.header-task {
+    color: var(--accent-green);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+#task-entry-form label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--accent-brown);
+    text-transform: uppercase;
+}
+
+.task-save {
+    background-color: var(--accent-green);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.task-cancel {
+    background: none;
+    border: none;
+    color: var(--accent-red);
+    font-weight: 700;
+    cursor: pointer;
+}

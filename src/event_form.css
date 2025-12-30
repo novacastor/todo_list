@@ -1,0 +1,35 @@
+#event-entry-form {
+    border-top: 5px solid var(--accent-blue);
+}
+
+.header-event {
+    color: var(--accent-blue);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+#event-entry-form label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--accent-blue); /* Using blue for event labels */
+    text-transform: uppercase;
+}
+
+.event-save {
+    background-color: var(--accent-blue);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.event-cancel {
+    background: none;
+    border: none;
+    color: var(--accent-brown); /* Different cancel color for events */
+    font-weight: 700;
+    cursor: pointer;
+}

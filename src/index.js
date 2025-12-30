@@ -15,6 +15,7 @@ class Event {
         this.location = item.location;
     }
 }
+
 class Task {
     constructor(item) {
         this.id = item.id;
@@ -29,7 +30,20 @@ class Task {
         this.extra = item.extra;
     }
 }
+
 let todos = [];
+let projects = ["Project 1", "Project 2", "Project 3"];
+const mainContentSpace = document.querySelector('.content');
+const eventList = document.querySelector('.event-list');
+const taskList = document.querySelector('.task-list');
+const markCompletBtn = document.querySelector('.mark-complete');
+const addEventBtn = document.querySelector('.event-section .section-add');
+const addTaskBtn = document.querySelector('.task-section .section-add');
+const eventProjectDropdown = document.querySelector("#event-project-dropdown");
+const taskProjectDropdown = document.querySelector("#task-project-dropdown");
+const taskForm = document.querySelector("#task-entry-form");
+const eventForm = document.querySelector("#event-entry-form");
+const uiBackdrop = document.querySelector("#ui-backdrop");
 
 async function loadData() {
     data.forEach(item => {
@@ -152,16 +166,66 @@ function createDaySection(sectionId, dayNumber, dayName) {
     return { section, todoContainer};
 }
 
+function createMainContentSpaceHeading() {
+    const headingContainer = document.createElement('div');
+    const headingDateContainer = document.createElement('div');
+    const h1 = document.createElement('h1');
+    const projectHeading = document.createElement('div');
+    const headingSpace = document.createElement('div');
+
+    headingContainer.classList.add('content-heading-container');
+    headingDateContainer.classList.add('heading-date-container');
+    projectHeading.classList.add('project-heading');
+    headingSpace.classList.add('heading-spacer');
+
+    headingDateContainer.textContent = 'Dec 2025';
+    h1.textContent = 'Test';
+
+    headingContainer.appendChild(headingDateContainer);
+    projectHeading.appendChild(h1);
+    headingContainer.appendChild(projectHeading);
+    headingContainer.appendChild(headingSpace);
+
+    mainContentSpace.appendChild(headingContainer);
+}
+
+function makeTaskListElement(item) {
+    const li = document.createElement('li');
+    const label = document.createElement('label');
+    const input = document.createElement('input');
+    const span = document.createElement('span');
+
+    input.classList.add('task-checkbox');
+    input.type = 'checkbox';
+
+    span.textContent = item.title;
+
+    label.appendChild(input);
+    label.appendChild(span);
+
+    li.id = item.id;
+    li.appendChild(label);
+
+    return li;
+}
+
+function makeEventListElement(item) {
+    const li = document.createElement('li');
+    li.id = item.id;
+
+    li.textContent = item.title;
+
+    return li;
+}
+
 function renderTodoList() {
-    const mainContentSpace = document.querySelector('.content');
-    
-    if(!mainContentSpace) {
-        console.error("could not find .content element");
-        return;
-    }
-    
+    mainContentSpace.innerHTML = '';
+    eventList.innerHTML = '';
+    taskList.innerHTML = '';
+
     let currentTodosContainer = null;
     let lastDate = null;
+    createMainContentSpaceHeading();
     
     todos.forEach(todo => {
         if(todo.date !== lastDate) {
@@ -177,10 +241,37 @@ function renderTodoList() {
     
             currentTodosContainer = todoContainer;
         }
-    
-        const item = (todo instanceof Task) ? makeTaskElement(todo) : makeEventElement(todo);
-        currentTodosContainer.appendChild(item);
+        
+        if(todo instanceof Event) {
+            eventList.appendChild(makeEventListElement(todo));
+            currentTodosContainer.appendChild(makeEventElement(todo));
+        }
+        if(todo instanceof Task) {
+            if(todo.status === 'pending') {
+                taskList.appendChild(makeTaskListElement(todo));
+                currentTodosContainer.appendChild(makeTaskElement(todo));
+            }
+        }
     });
+}
+
+function populateDropdown(projectDropdown) {
+    projectDropdown.innerHTML = '';
+    projects.forEach(project => {
+        const projectItem = document.createElement('option');
+        projectItem.setAttribute('value', `${project}`);
+        projectItem.textContent = project;
+        projectDropdown.appendChild(projectItem);
+    });
+}
+
+function closeAllModals() {
+    taskForm.classList.add('hidden');
+    eventForm.classList.add('hidden');
+    uiBackdrop.classList.add('hidden');
+
+    taskForm.reset();
+    eventForm.reset();
 }
 
 async function renderApp() {
@@ -189,4 +280,97 @@ async function renderApp() {
     
     console.log("App Rendered Successfully");
 }
+
+let selectedTodoIds = new Set();
+
+taskList.addEventListener('change', (e) => {
+    if(e.target.classList.contains('task-checkbox')) {
+        const listItem = e.target.closest('li');
+        const todoId = listItem.id;
+        if(e.target.checked) {
+            selectedTodoIds.add(todoId);
+        }else{
+            selectedTodoIds.delete(todoId);
+        }
+
+        if(selectedTodoIds.size > 0) {
+            markCompletBtn.classList.remove('hidden');
+        }else{
+            markCompletBtn.classList.add('hidden');
+        }
+    }
+});
+
+
+markCompletBtn.addEventListener('click', (e) => {
+    selectedTodoIds.forEach(id => {
+        const todo = todos.find(t => t.id === id);
+        if(todo) {
+            todo.status = 'completed';  
+        }
+    });
+    selectedTodoIds.clear();
+    markCompletBtn.classList.add('hidden');
+    renderTodoList();
+});
+
+addEventBtn.addEventListener('click', (e) => {
+    console.log("add event button is pressed");
+    e.preventDefault();
+    eventForm.classList.remove('hidden');
+    uiBackdrop.classList.remove('hidden');
+    populateDropdown(eventProjectDropdown);
+});
+
+addTaskBtn.addEventListener('click', (e) => {
+    console.log("add task button is preseed");
+    e.preventDefault();
+    taskForm.classList.remove('hidden');
+    uiBackdrop.classList.remove('hidden');
+    populateDropdown(taskProjectDropdown);
+});
+
+taskForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(taskForm);
+    const dataObj = Object.fromEntries(formData.entries());
+
+    const newTask = new Task({
+        ...dataObj,
+        id: `task-${Date.now()}`
+    });
+    todos.push(newTask);
+    todos.sort(sortByDateAndTime);
+
+    closeAllModals();
+    renderTodoList();
+    console.log("Task Added Successfully");
+});
+eventForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(eventForm);
+    const dataObj = Object.fromEntries(formData.entries());
+
+    const newEvent = new Event({
+        id: `event-${Date.now()}`,
+        project_name: dataObj.project_name,
+        date: dataObj.date,
+        title: dataObj.title,
+        description: dataObj.description,
+        location: dataObj.location,
+        time: {
+            start: dataObj.start_time,
+            end: dataObj.end_time
+        }
+    });
+
+    todos.push(newEvent);
+    todos.sort(sortByDateAndTime);
+
+    closeAllModals();
+    renderTodoList();
+    console.log("New Event Added:");
+});
+document.querySelectorAll('.cancel-trigger').forEach(btn => btn.addEventListener('click', closeAllModals));
 renderApp();
