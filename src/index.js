@@ -1,5 +1,17 @@
-import './main.css';
-import data from './data/temp.json'
+import './styles/main.css';
+import data from './data/projects.json';
+import demoProjectData from './data/temp_projects.json';
+import workData from './data/work.json';
+import gymData from './data/gym.json';
+import personalData from './data/personal.json';
+import sportsData from './data/sports.json';
+
+const projectContentMap = {
+    "Work": workData,
+    "Gym": gymData,
+    "Sports": sportsData,
+    "Personal": personalData
+};
 
 console.log("Webpack is working");
 
@@ -10,8 +22,8 @@ class Event {
         this.date = item.date;
         this.title = item.title;
         this.description = item.description;
-        this.start_time = item.time.start;
-        this.end_time = item.time.end;
+        this.start_time = item.time?.start || item.start_time;
+        this.end_time = item.time?.end || item.end_time;
         this.location = item.location;
     }
 }
@@ -31,11 +43,31 @@ class Task {
     }
 }
 
+class Project {
+    constructor(item) {
+        const timestamp = Date.now();
+        this.id = item.id || `project-${timestamp}`;
+        this.name = item.name;
+        this.description = item.description;
+        this.data_path = item.data_path || `./data/${timestamp}.json`;
+        this.todos = item.todos || [];
+        this.total_tasks = item.total_tasks|| 0;
+        this.total_events = item.total_events || 0;
+        this.tasks_completed = item.tasks_completed || 0;
+        this.event_completed = item.event_completed || 0;   
+        this.createdAt = item.createdAt || new Date().toISOString();
+    }
+}
+
 let todos = [];
-let projects = ["Project 1", "Project 2", "Project 3"];
+let projects = [];
+let selectedProject = "Work";
+let selectedTodoIds = new Set();
+
 const mainContentSpace = document.querySelector('.content');
 const eventList = document.querySelector('.event-list');
 const taskList = document.querySelector('.task-list');
+const projectList = document.querySelector('.project-list ul');
 const markCompletBtn = document.querySelector('.mark-complete');
 const addEventBtn = document.querySelector('.event-section .section-add');
 const addTaskBtn = document.querySelector('.task-section .section-add');
@@ -43,12 +75,75 @@ const eventProjectDropdown = document.querySelector("#event-project-dropdown");
 const taskProjectDropdown = document.querySelector("#task-project-dropdown");
 const taskForm = document.querySelector("#task-entry-form");
 const eventForm = document.querySelector("#event-entry-form");
+const projectForm = document.querySelector("#project-entry-form");
 const uiBackdrop = document.querySelector("#ui-backdrop");
+const addProjectBtn = document.querySelector('.add-project');
+const loadDemoDataBtn = document.querySelector('#load-demo-data-btn');
+const clearDemoDataBtn = document.querySelector('#clear-demo-data-btn');
+
+loadDemoDataBtn.addEventListener('click', () => {
+    const newProjects = demoProjectData.map(item => new Project(item));
+
+    const newTodos = newProjects.flatMap(project => {
+        const contentData = projectContentMap[project.name];
+        
+        if (!contentData) {
+            console.warn(`No data found for project: ${project.name}`);
+            return [];
+        }
+
+        return contentData.items.map(item => {
+            const itemWithProject = { ...item, project_name: project.name };
+            
+            return item.status 
+                ? new Task(itemWithProject) 
+                : new Event(itemWithProject);
+        });
+    });
+    projects = newProjects;
+    todos = newTodos;
+
+    todos.sort(sortByDateAndTime);
+    selectedProject = projects[0].name;
+
+    renderSidebarProjects();
+    renderTodoList();
+    renderCalendar();
+    renderTaskStats();
+
+    loadDemoDataBtn.classList.add('hidden');
+    clearDemoDataBtn.classList.remove('hidden');
+
+    console.log("Demo data loaded from imports.");
+});
+
+clearDemoDataBtn.addEventListener('click', () => {
+    projects = [];
+    todos = [];
+
+    renderApp();
+    clearDemoDataBtn.classList.add('hidden');
+});
 
 async function loadData() {
-    data.forEach(item => {
-        (item.type === 'task') ? todos.push(new Task(item)) : todos.push(new Event(item));
-    });
+    todos = [];
+    const saveTodos = localStorage.getItem('todos_json');
+
+    if(saveTodos) {
+        const parsed = JSON.parse(saveTodos);
+
+        parsed.forEach(item => {
+            if(item.status) {
+                todos.push(new Task(item));
+            }else{
+                todos.push(new Event(item));
+            }
+        });
+    }else{
+        data.forEach(item => {
+            (item.type === 'task') ? todos.push(new Task(item)) : todos.push(new Event(item));
+        });
+    }
 
     todos.sort(sortByDateAndTime);
     console.log("Data Loaded");
@@ -71,24 +166,34 @@ function createGenericItem(todoItem, typeName) {
     const dashTime = document.createElement('span');
     const details = document.createElement('div');
     const title = document.createElement('div');
-
+    const deleteBtn = document.createElement('button');
+    
+    
     item.classList.add('todo-item', `type-${typeName}`);
     time.classList.add('todo-time');
     timeRange.classList.add('time-range');
     dashTime.classList.add('time-dash');
     details.classList.add('todo-details');
     title.classList.add('todo-title');
+    deleteBtn.classList.add('item-delete-btn');
     
     timeRange.textContent = todoItem.start_time + " ";
     dashTime.textContent = `- ${todoItem.end_time}`;
     title.textContent = todoItem.title;
+    deleteBtn.innerHTML = '&times';
     
+    deleteBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        deleteTodo(todoItem.id);
+    });
+
     timeRange.appendChild(dashTime);
     time.appendChild(timeRange);
     details.appendChild(title);
     
     item.appendChild(time);
     item.appendChild(details);
+    item.appendChild(deleteBtn);
     item.id = todoItem.id;
     
     return {item, time, details};
@@ -98,8 +203,9 @@ function makeTaskElement(todoItem) {
     const {item, time, details} = createGenericItem(todoItem, 'task');
     
     const priority = document.createElement('div');
-    priority.classList.add('todo-priority', todoItem.priority);
-    priority.textContent = todoItem.priority.toUpperCase();
+    const priorityClass = todoItem.priority ? todoItem.priority.toLowerCase() : 'low';
+    priority.classList.add('todo-priority', priorityClass);
+    priority.textContent = priorityClass.toUpperCase();
     time.appendChild(priority);
 
     const description = document.createElement('div');
@@ -171,20 +277,34 @@ function createMainContentSpaceHeading() {
     const headingDateContainer = document.createElement('div');
     const h1 = document.createElement('h1');
     const projectHeading = document.createElement('div');
-    const headingSpace = document.createElement('div');
+    const deleteBtnWrapper = document.createElement('div'); 
+    const deleteProjectBtn = document.createElement('button');
 
     headingContainer.classList.add('content-heading-container');
     headingDateContainer.classList.add('heading-date-container');
     projectHeading.classList.add('project-heading');
-    headingSpace.classList.add('heading-spacer');
+    
+    deleteBtnWrapper.classList.add('delete-project-wrapper'); 
+    deleteProjectBtn.classList.add('delete-project-btn');
 
     headingDateContainer.textContent = 'Dec 2025';
-    h1.textContent = 'Test';
+    h1.textContent = selectedProject;
+    deleteProjectBtn.textContent = 'Delete Project';
+
+    if (selectedProject === "Work") {
+        deleteProjectBtn.style.display = 'none'; // Use display:none instead of visibility:hidden
+    } else {
+        deleteProjectBtn.style.display = 'block'; // Ensure it's visible for other projects
+    }
+
+    deleteProjectBtn.addEventListener('click', () => deleteProject(selectedProject));
 
     headingContainer.appendChild(headingDateContainer);
     projectHeading.appendChild(h1);
     headingContainer.appendChild(projectHeading);
-    headingContainer.appendChild(headingSpace);
+    
+    deleteBtnWrapper.appendChild(deleteProjectBtn);
+    headingContainer.appendChild(deleteBtnWrapper);
 
     mainContentSpace.appendChild(headingContainer);
 }
@@ -226,8 +346,10 @@ function renderTodoList() {
     let currentTodosContainer = null;
     let lastDate = null;
     createMainContentSpaceHeading();
+
+    const filteredTodos = todos.filter(todo => todo.project_name === selectedProject && todo.status !== 'completed');
     
-    todos.forEach(todo => {
+    filteredTodos.forEach(todo => {
         if(todo.date !== lastDate) {
             lastDate = todo.date;
     
@@ -258,30 +380,187 @@ function renderTodoList() {
 function populateDropdown(projectDropdown) {
     projectDropdown.innerHTML = '';
     projects.forEach(project => {
-        const projectItem = document.createElement('option');
-        projectItem.setAttribute('value', `${project}`);
-        projectItem.textContent = project;
-        projectDropdown.appendChild(projectItem);
+        const projectOption = document.createElement('option');
+        projectOption.setAttribute('value', `${project.name}`);
+        projectOption.textContent = project.name;
+        projectDropdown.appendChild(projectOption);
+    });
+}
+
+function renderSidebarProjects() {
+    projectList.innerHTML = '';
+    projects.forEach(project => {
+        const li = document.createElement('li');
+        li.classList.add('project-card');
+        if(project.name === selectedProject) li.classList.add('active');
+
+        // Create name span
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = project.name;
+        nameSpan.addEventListener('click', () => {
+            selectedProject = project.name;
+            renderSidebarProjects();
+            renderTodoList();
+        });
+
+        li.appendChild(nameSpan);// Don't show delete on Work
+        projectList.appendChild(li);
     });
 }
 
 function closeAllModals() {
     taskForm.classList.add('hidden');
     eventForm.classList.add('hidden');
+    projectForm.classList.add('hidden');
     uiBackdrop.classList.add('hidden');
 
     taskForm.reset();
     eventForm.reset();
+    projectForm.reset();
+}
+
+function renderCalendar() {
+    const calendarGrid = document.querySelector('.calendar-grid');
+    if (!calendarGrid) return;
+
+    // 1. Keep the Day Labels (Sun-Sat), clear the dates
+    const dayLabels = calendarGrid.querySelectorAll('.day-label');
+    calendarGrid.innerHTML = '';
+    dayLabels.forEach(label => calendarGrid.appendChild(label));
+
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+
+    // 2. Logic for days in the current month
+    const firstDayIndex = new Date(year, month, 1).getDay();
+    const totalDays = new Date(year, month + 1, 0).getDate();
+
+    // 3. Render previous month placeholders (optional but keeps grid aligned)
+    for (let i = 0; i < firstDayIndex; i++) {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'date p-month';
+        calendarGrid.appendChild(placeholder);
+    }
+
+    // 4. Render the actual days
+    for (let day = 1; day <= totalDays; day++) {
+        const dateDiv = document.createElement('div');
+        dateDiv.className = 'date';
+        dateDiv.textContent = day;
+
+        if (day === now.getDate()) dateDiv.classList.add('current-day');
+
+        // Match date string to your todo format (YYYY-MM-DD)
+        const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+        // 5. PRIORITY DOT LOGIC:
+        // Filter tasks for this day and extract unique priorities
+        const dayTodos = todos.filter(t => t.date === dateString);
+        const uniquePriorities = [...new Set(dayTodos.map(t => t.priority))];
+
+        // Create container for dots to manage positioning via CSS
+        const dotsContainer = document.createElement('div');
+        dotsContainer.className = 'dots-wrapper'; 
+        // Note: You can also append dots directly to dateDiv as per your CSS
+
+        // Map priorities to your CSS dot classes
+        if (uniquePriorities.includes('high')) {
+            const dot = document.createElement('span');
+            dot.className = 'dot brown'; // High matches Brown in your CSS
+            dateDiv.appendChild(dot);
+        }
+        if (uniquePriorities.includes('medium')) {
+            const dot = document.createElement('span');
+            dot.className = 'dot blue'; // Medium matches Blue in your CSS
+            dateDiv.appendChild(dot);
+        }
+        if (uniquePriorities.includes('low')) {
+            const dot = document.createElement('span');
+            dot.className = 'dot green'; // Low matches Green in your CSS
+            dateDiv.appendChild(dot);
+        }
+
+        calendarGrid.appendChild(dateDiv);
+    }
+}
+
+function renderTaskStats() {
+    const filteredTodos = todos.filter(t => t.project_name === selectedProject);
+    const total = filteredTodos.length;
+    const pending = filteredTodos.filter(t => t.status === 'pending').length;
+    const completed = filteredTodos.filter(t => t.status === 'completed').length;
+    
+    // Calculate percentage (avoid division by zero)
+    const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+    // 2. Target the DOM elements in your sidebar
+    const pendingEl = document.querySelector('.stat-item .stat-value:not(.completed)');
+    const completedEl = document.querySelector('.stat-item .stat-value.completed');
+    const barFillEl = document.querySelector('.stat-bar-fill');
+    const footerEl = document.querySelector('.stat-footer');
+
+    // 3. Update the UI
+    if (pendingEl) pendingEl.textContent = pending;
+    if (completedEl) completedEl.textContent = completed;
+    
+    if (barFillEl) {
+        barFillEl.style.width = `${percentage}%`;
+    }
+    
+    if (footerEl) {
+        footerEl.textContent = `${percentage}% of monthly goal reached`;
+    }
 }
 
 async function renderApp() {
+    const savedProjects = localStorage.getItem('projects_json');
+
+    if(savedProjects) {
+        const parsed = JSON.parse(savedProjects);
+        projects = parsed.map(p => new Project(p));
+    }else{
+        projects = data.map(p => new Project(p));
+    }
+    renderSidebarProjects();
     await loadData();
     renderTodoList();
+    renderCalendar();
+    renderTaskStats();
     
     console.log("App Rendered Successfully");
 }
 
-let selectedTodoIds = new Set();
+
+function saveTodos() {
+    localStorage.setItem('todos_json', JSON.stringify(todos));
+}
+
+function deleteTodo() {
+    if(confirm('Are you sure you want to delete this?')) {
+        todos = todos.filter(t => t.id !== id);
+        saveTodos();
+        renderTodoList();
+    }
+}
+
+function deleteProject() {
+    if(selectedProject === "Work") {
+        return alert("Can't delete work");
+    }
+
+    if(confirm(`Delete "${selectedProject}" and all its tasks?`)) {
+        todos = todos.filter(t => t.project_name !== selectedProject);
+        projects = projects.filter(p => p.name !== selectedProject);
+
+        saveTodos();
+        localStorage.setItem('projects_json', JSON.stringify(projects));
+
+        selectedProject = "Work";
+        renderSidebarProjects();
+        renderTodoList();
+    }
+}
 
 taskList.addEventListener('change', (e) => {
     if(e.target.classList.contains('task-checkbox')) {
@@ -310,8 +589,11 @@ markCompletBtn.addEventListener('click', (e) => {
         }
     });
     selectedTodoIds.clear();
+    saveTodos();
     markCompletBtn.classList.add('hidden');
     renderTodoList();
+    renderCalendar();
+    renderTaskStats();
 });
 
 addEventBtn.addEventListener('click', (e) => {
@@ -328,6 +610,15 @@ addTaskBtn.addEventListener('click', (e) => {
     taskForm.classList.remove('hidden');
     uiBackdrop.classList.remove('hidden');
     populateDropdown(taskProjectDropdown);
+
+    taskProjectDropdown.value = selectedProject;
+});
+
+addProjectBtn.addEventListener('click', (e) => {
+    console.log('Add project Button Pressed');
+    e.preventDefault();
+    projectForm.classList.remove('hidden');
+    uiBackdrop.classList.remove('hidden');
 });
 
 taskForm.addEventListener('submit', (e) => {
@@ -341,11 +632,13 @@ taskForm.addEventListener('submit', (e) => {
     });
     todos.push(newTask);
     todos.sort(sortByDateAndTime);
+    saveTodos();
 
     closeAllModals();
     renderTodoList();
     console.log("Task Added Successfully");
 });
+
 eventForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -367,10 +660,31 @@ eventForm.addEventListener('submit', (e) => {
 
     todos.push(newEvent);
     todos.sort(sortByDateAndTime);
+    saveTodos();
 
     closeAllModals();
     renderTodoList();
     console.log("New Event Added:");
 });
+
+projectForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(projectForm);
+    const dataObj = Object.fromEntries(formData.entries());
+
+    const newProject = new Project(dataObj);
+    projects.push(newProject);
+
+    localStorage.setItem('projects_json', JSON.stringify(projects));
+    const fileContent = {project_id: newProject.id, items: []};
+    localStorage.setItem(newProject.data_path, JSON.stringify(fileContent));
+
+    closeAllModals();
+    renderSidebarProjects();
+
+    console.log("Project Created:");
+});
+
 document.querySelectorAll('.cancel-trigger').forEach(btn => btn.addEventListener('click', closeAllModals));
 renderApp();

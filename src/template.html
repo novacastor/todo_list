@@ -6,7 +6,6 @@
     <title>DOTODO</title>
 </head>
 <body>
-<body>
   <div class="app-layout">
 
     <aside class="sidebar sidebar--projects">
@@ -26,7 +25,10 @@
                 <li class="project-card">Project4</li>
             </ul>
         </nav>
-
+        <div class="project-sidebar-footer">
+            <button id="load-demo-data-btn">Load Demo Data</button>
+            <button id="clear-demo-data-btn" class="hidden">Clear Demo</button>
+        </div>
         <!-- Profile Section -->
         <div class="sidebar__profile">
             JAMES
@@ -59,11 +61,7 @@
         <button class="add-project" aria-label="Add project">+</button>
     </aside>
     <main class="content">
-        <div class="content-heading-container">
-            <div class="heading-date-container">May 2025</div>
-            <div class="project-heading"><h1>ProjectN</h1></div>
-            <div class="heading-spacer"></div>
-        </div>
+        <div class="content-heading-container"></div>
     </main>
 
 
@@ -81,42 +79,6 @@
                 <div class="day-label">Thu</div>
                 <div class="day-label">Fri</div>
                 <div class="day-label">Sat</div>
-
-                <div class="date p-month">31</div>
-                <div class="date">1</div>
-                <div class="date">2</div>
-                <div class="date current-day">3</div>
-                <div class="date">4</div>
-                <div class="date">5</div>
-                <div class="date">6</div>
-                <div class="date">7</div>
-                <div class="date">8<span class="dot brown"></span></div>
-                <div class="date">9<span class="dot green"></span></div>
-                <div class="date">10</div>
-                <div class="date">11<span class="dot blue"></span><span class="dot brown"></span></div>
-                <div class="date">12<span class="dot brown"></span><span class="dot green"></span></div>
-                <div class="date">13</div>
-                <div class="date">14</div>
-                <div class="date">15</div>
-                <div class="date">16</div>
-                <div class="date">17</div>
-                <div class="date">18</div>
-                <div class="date">19</div>
-                <div class="date">20</div>
-                <div class="date">21</div>
-                <div class="date">22<span class="dot green"></span><span class="dot blue"></span></div>
-                <div class="date">23</div>
-                <div class="date">24</div>
-                <div class="date">25</div>
-                <div class="date">26</div>
-                <div class="date">27</div>
-                <div class="date">28</div>
-                <div class="date">29</div>
-                <div class="date">30</div>
-                <div class="date n-month">1</div>
-                <div class="date n-month">2</div>
-                <div class="date n-month">3</div>
-                <div class="date n-month">4</div>
             </div>
         </div>
         
@@ -248,6 +210,25 @@
         <div class="form-controls">
             <button type="button" class="cancel-trigger event-cancel">Dismiss</button>
             <button type="submit" class="save-trigger event-save">Create Event</button>
+        </div>
+    </form>
+
+    <form id="project-entry-form" class="modal-container hidden">
+        <h2 class="form-header project-header">New Project</h2>
+        
+        <div class="field-group">
+            <label>Project Name</label>
+            <input type="text" name="name" required placeholder="e.g., Personal Website">
+        </div>
+
+        <div class="field-group">
+            <label>Project Description</label>
+            <textarea name="description" rows="3" placeholder="Briefly describe the project goals..."></textarea>
+        </div>
+
+        <div class="form-controls">
+            <button type="button" class="cancel-trigger project-cancel">Cancel</button>
+            <button type="submit" class="save-trigger project-save">Create Project</button>
         </div>
     </form>
 

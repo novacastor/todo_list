@@ -1,0 +1,15 @@
+{
+  "project_id": "project-1735659231002",
+  "items": [
+    { "type": "task", "id": "g-t1", "title": "Prep Protein Shakes", "description": "Mix 5 bottles for the week", "date": "2025-01-01", "start_time": "20:00", "end_time": "20:30", "priority": "medium", "status": "pending" },
+    { "type": "task", "id": "g-t2", "title": "Wash Gym Clothes", "description": "Laundry for sports gear", "date": "2025-01-02", "start_time": "18:00", "end_time": "19:00", "priority": "low", "status": "pending" },
+    { "type": "task", "id": "g-t3", "title": "Order Creatine", "description": "Refill supplement stock", "date": "2025-01-03", "start_time": "09:00", "end_time": "09:15", "priority": "high", "status": "pending" },
+    { "type": "task", "id": "g-t4", "title": "Plan Leg Day", "description": "Calculate new 1RM for squats", "date": "2025-01-04", "start_time": "17:00", "end_time": "17:30", "priority": "medium", "status": "pending" },
+    { "type": "task", "id": "g-t5", "title": "Update Weight Log", "description": "Record morning weigh-in", "date": "2025-01-05", "start_time": "07:00", "end_time": "07:05", "priority": "low", "status": "pending" },
+    { "type": "event", "id": "g-e1", "title": "Leg Day Session", "location": "Gold's Gym", "date": "2025-01-01", "time": { "start": "06:00", "end": "07:30" }, "description": "Heavy squats and lunges" },
+    { "type": "event", "id": "g-e2", "title": "Yoga Class", "location": "Studio B", "date": "2025-01-02", "time": { "start": "19:00", "end": "20:00" }, "description": "Flexibility and core" },
+    { "type": "event", "id": "g-e3", "title": "Cardio Blast", "location": "Park Track", "date": "2025-01-03", "time": { "start": "18:00", "end": "18:45" }, "description": "HIIT sprints" },
+    { "type": "event", "id": "g-e4", "title": "Upper Body Push", "location": "Gold's Gym", "date": "2025-01-04", "time": { "start": "06:00", "end": "07:30" }, "description": "Bench press and shoulders" },
+    { "type": "event", "id": "g-e5", "title": "Swimming Session", "location": "City Pool", "date": "2025-01-05", "time": { "start": "10:00", "end": "11:00" }, "description": "Active recovery laps" }
+  ]
+}

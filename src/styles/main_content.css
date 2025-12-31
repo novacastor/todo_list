@@ -12,26 +12,60 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
-    border-bottom: 3px solid rgba(0,0,0);
+    border-bottom: 3px solid #000;
     padding-bottom: 15px;
 }
 
-.heading-date-container, .heading-spacer {
-    flex: 1; 
-}
-
 .heading-date-container {
+    flex: 1; 
     font-size: 24px;
     font-weight: 700;
     color: #333;
+}
+
+.project-heading {
+    flex: 2; 
+    text-align: center;
 }
 
 .project-heading h1 {
     font-size: 32px;
     font-weight: 800;
     color: #000;
-    text-align: center;
     margin: 0;
+}
+
+.delete-project-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* --- Eye-Catching Delete Project Button --- */
+.delete-project-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #000; /* Solid Red */
+    border: 1.5px solid #f80000;    /* Thick Black Border */
+    color: #ff4d4d;               /* White Text */
+    padding: 10px 22px;
+    font-weight: 900;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+}
+
+.delete-project-btn:hover {
+    background-color: #f80000;    /* Inverts to Black on hover */
+    color: #000;            /* Text becomes Red */
+    border-color: 0;
+}
+
+.delete-project-btn:active {
+    transform: scale(0.95);    /* Physical "click" shrink effect */
 }
 
 /* ---------- Day Layout ---------- */
@@ -69,7 +103,6 @@
     margin-top: 12px;
 }
 
-/* ---------- Todo Cards Container ---------- */
 .day-todos {
     flex: 1;
     display: flex;
@@ -80,21 +113,40 @@
 
 /* ---------- Shared Card Styles ---------- */
 .todo-item {
+    position: relative;
     display: flex;
     align-items: flex-start;
     gap: 20px;
     padding: 15px 25px;
     background-color: var(--content-background);
     border-radius: 16px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     transition: transform 0.2s ease;
+}
+
+.todo-item:hover {
+    transform: translateY(-2px);
+}
+
+.item-delete-btn {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.todo-item:hover .item-delete-btn {
+    color: #ff4d4d;
 }
 
 .todo-time {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    gap: 8px;
     min-width: 135px;
 }
 
@@ -106,7 +158,6 @@
 
 .time-dash {
     color: #888;
-    font-weight: 400;
     font-size: 14px;
 }
 
@@ -119,14 +170,12 @@
 .todo-title {
     font-weight: 700;
     font-size: 13px;
-    margin-bottom: 2px;
 }
 
-.todo-description {
+.todo-description, .event-location {
     font-size: 17px;
     font-weight: 700;
     color: #000;
-    margin-bottom: 4px;
 }
 
 .todo-type {
@@ -134,64 +183,21 @@
     font-weight: 600;
     color: var(--accent-brown);
     text-transform: uppercase;
-    opacity: 0.8;
 }
 
-/* ---------- Type Modifiers (Borders) ---------- */
-.todo-item.type-task .todo-details {
-    border-left-color: var(--accent-green);
-}
-
-.todo-item.type-event .todo-details {
-    border-left-color: var(--accent-blue);
-}
-
-.event-location {
-    font-size: 17px; /* Matches description size */
-    font-weight: 700;
-    color: #000; /* Keeping font style consistent with tasks */
-    margin-bottom: 4px;
-}
-
-/* ---------- Priority & Title Colors ---------- */
-
-/* High Priority (Red) */
-.todo-item:has(.high) .todo-title { color: var(--accent-red); }
-.todo-priority.high {
-    background-color: #ffebee;
-    color: var(--accent-red);
-}
-
-/* Medium Priority (Blue) */
-.todo-item:has(.medium) .todo-title { color: var(--accent-blue); }
-.todo-priority.medium {
-    background-color: #e3f2fd;
-    color: var(--accent-blue);
-}
-
-/* Low Priority (Green) */
-.todo-item:has(.low) .todo-title { color: var(--accent-green); }
-.todo-priority.low {
-    background-color: #e8f5e9;
-    color: var(--accent-green);
-}
-
-/* Priority Tag Base */
+/* ---------- Priority Colors ---------- */
 .todo-priority {
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
     padding: 4px 8px;
     border-radius: 6px;
     width: fit-content;
 }
 
-/* Title modifier for "working" status - overrides priority color */
-.todo-title.working {
-    color: var(--accent-brown) !important;
-}
+.todo-priority.high { background-color: #ffebee; color: var(--accent-red); }
+.todo-priority.medium { background-color: #e3f2fd; color: var(--accent-blue); }
+.todo-priority.low { background-color: #e8f5e9; color: var(--accent-green); }
 
-.todo-item:has(.todo-title.working) .todo-details {
-    border-left-color: var(--accent-brown);
-}
+.todo-item.type-task .todo-details { border-left-color: var(--accent-green); }
+.todo-item.type-event .todo-details { border-left-color: var(--accent-blue); }

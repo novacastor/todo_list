@@ -1,0 +1,50 @@
+[
+  {
+    "id": "project-1735659231001",
+    "name": "Work",
+    "description": "Professional deadlines, meeting notes, and software development tasks.",
+    "data_path": "./data/1735659231001.json",
+    "todos": [],
+    "total_tasks": 12,
+    "total_events": 5,
+    "tasks_completed": 8,
+    "event_completed": 4,
+    "createdAt": "2025-12-31T15:33:51.001Z"
+  },
+  {
+    "id": "project-1735659231002",
+    "name": "Gym",
+    "description": "Strength training routines, cardio goals, and supplement tracking.",
+    "data_path": "./data/1735659231002.json",
+    "todos": [],
+    "total_tasks": 6,
+    "total_events": 20,
+    "tasks_completed": 6,
+    "event_completed": 15,
+    "createdAt": "2025-12-31T15:33:51.002Z"
+  },
+  {
+    "id": "project-1735659231003",
+    "name": "Sports",
+    "description": "Weekly football matches and tennis practice sessions.",
+    "data_path": "./data/1735659231003.json",
+    "todos": [],
+    "total_tasks": 2,
+    "total_events": 8,
+    "tasks_completed": 1,
+    "event_completed": 6,
+    "createdAt": "2025-12-31T15:33:51.003Z"
+  },
+  {
+    "id": "project-1735659231004",
+    "name": "Personal",
+    "description": "Daily errands, grocery lists, and personal hobby projects.",
+    "data_path": "./data/1735659231004.json",
+    "todos": [],
+    "total_tasks": 15,
+    "total_events": 2,
+    "tasks_completed": 10,
+    "event_completed": 2,
+    "createdAt": "2025-12-31T15:33:51.004Z"
+  }
+]
