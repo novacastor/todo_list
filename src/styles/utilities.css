@@ -110,17 +110,36 @@
 }
 
 .current-day {
-    background-color: var(--accent-red);
-    color: #fff;
+    background-color: #fff;
+    color: var(--accent-brown);
     border-radius: 10px;
 }
 
 .p-month, .n-month { color: #b5b4a5; }
 
-.dot { position: absolute; bottom: 4px; width: 4px; height: 4px; border-radius: 50%; left: 50%; transform: translateX(-50%); }
-.dot.brown { background-color: var(--accent-brown); }
-.dot.green { background-color: var(--accent-green); }
-.dot.blue  { background-color: var(--accent-blue); }
+.dot { 
+    position: absolute; 
+    bottom: 4px; 
+    width: 4px; 
+    height: 4px; 
+    border-radius: 50%; 
+    left: 50%; 
+    transform: translateX(-50%); 
+}
+.dot.red { 
+    background-color: 
+    var(--accent-red); 
+}
+.dot.green { 
+    background-color: 
+    var(--accent-green); 
+    transform: translateX(200%);
+}
+.dot.blue  { 
+    background-color: 
+    var(--accent-blue); 
+    transform: translateX(100%);
+}
 
 .utilities {
     display: flex;
