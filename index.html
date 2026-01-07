@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOTODO</title>
+<script defer src="main.js"></script></head>
+<body>
+  <div class="app-layout">
+
+    <aside class="sidebar sidebar--projects">
+        
+        <!-- Logo Section -->
+        <div class="sidebar__logo">
+            <img src="bc23c9b74a3b1d77efd3.svg" alt="logo" class="logo">
+        </div>
+
+        <!-- Projects Section -->
+        <h2>Projects</h2>
+        <nav class="project-list">
+            <ul>
+            </ul>
+        </nav>
+        <div class="project-sidebar-footer">
+            <button id="load-demo-data-btn">Load Demo Data</button>
+            <button id="clear-demo-data-btn" class="hidden">Clear Demo</button>
+        </div>
+        <!-- Profile Section -->
+        <div class="sidebar__profile">
+            JAMES
+        </div>
+
+    </aside>
+
+
+    <aside class="sidebar sidebar--todos">
+        <div class="project">
+            <div class="section event-section">
+                <h3>
+                    Events
+                    <button class="section-add" aria-label="Add event">+</button>
+                </h3>
+                <ul class="event-list">
+                </ul>
+            </div>
+
+            <div class="section task-section">
+                <h3>
+                    Tasks
+                    <button class="section-add" aria-label="Add task">+</button>
+                </h3>
+                <ul class="task-list">
+                </ul>
+            </div>
+        </div>
+        <button class="mark-complete hidden">Mark Complete</button>
+        <button class="add-project" aria-label="Add project">+</button>
+    </aside>
+    <main class="content">
+        <div class="content-heading-container"></div>
+    </main>
+
+
+    <aside class="sidebar sidebar--utilities">
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <h2>Calendar</h2>
+            </div>
+            
+            <div class="calendar-grid">
+                <div class="day-label">Sun</div>
+                <div class="day-label">Mon</div>
+                <div class="day-label">Tue</div>
+                <div class="day-label">Wed</div>
+                <div class="day-label">Thu</div>
+                <div class="day-label">Fri</div>
+                <div class="day-label">Sat</div>
+            </div>
+        </div>
+        
+        <div class="utilities">
+            <div class="stats-card">
+                <h3>Task Overview</h3>
+                <div class="stat-item">
+                    <span class="stat-label">Pending</span>
+                    <span class="stat-value">12</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Completed</span>
+                    <span class="stat-value completed">45</span>
+                </div>
+                <div class="stat-bar-container">
+                    <div class="stat-bar-fill" style="width: 79%;"></div>
+                </div>
+                <p class="stat-footer">79% of monthly goal reached</p>
+            </div>
+
+            <div class="stats-card">
+                <h3>Project Status</h3>
+                <div class="project-stat">
+                    <div class="project-dot green"></div>
+                    <span>3 Active Projects</span>
+                </div>
+                <div class="project-stat">
+                    <div class="project-dot brown"></div>
+                    <span>1 On Hold</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <div id="ui-backdrop" class="form-backdrop hidden"></div>
+
+    <form id="task-entry-form" class="modal-container hidden">
+        <h2 class="form-header header-task">Create New Task</h2>
+        <input type="hidden" name="type" value="task">
+        <input type="hidden" name="status" value="pending">
+
+        <div class="field-group">
+            <label>Task Title</label>
+            <input type="text" name="title" required placeholder="e.g., Update README">
+        </div>
+
+        <div class="field-row">
+            <div class="field-group">
+                <label>Due Date</label>
+                <input type="date" name="date" required>
+            </div>
+            <div class="field-group">
+                <label>Project</label>
+                <select id="task-project-dropdown" class="project-dropdown" name="project_name"></select>
+            </div>
+        </div>
+
+        <div class="field-row">
+            <div class="field-group">
+                <label>Start Time</label>
+                <input type="time" name="start_time" required>
+            </div>
+            <div class="field-group">
+                <label>End Time</label>
+                <input type="time" name="end_time" required>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <label>Priority Level</label>
+            <select name="priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+        </div>
+
+        <div class="field-group">
+            <label>Description</label>
+            <textarea name="description" rows="3" placeholder=""></textarea>
+        </div>
+
+        <div class="form-controls">
+            <button type="button" class="cancel-trigger task-cancel">Cancel</button>
+            <button type="submit" class="save-trigger task-save">Save Task</button>
+        </div>
+    </form>
+
+    <form id="event-entry-form" class="modal-container hidden">
+        <h2 class="form-header header-event">Schedule New Event</h2>
+        <input type="hidden" name="type" value="event">
+
+        <div class="field-group">
+            <label>Event Name</label>
+            <input type="text" name="title" required placeholder="e.g., Team Lunch">
+        </div>
+
+        <div class="field-group">
+            <label>Location</label>
+            <input type="text" name="location" required placeholder="📍 The Green Cafe">
+        </div>
+
+        <div class="field-row">
+            <div class="field-group">
+                <label>Event Date</label>
+                <input type="date" name="date" required>
+            </div>
+            <div class="field-group">
+                <label>Project Context</label>
+                <select id="event-project-dropdown" class="project-dropdown" name="project_name"></select>
+            </div>
+        </div>
+
+        <div class="field-row">
+            <div class="field-group">
+                <label>Starts At</label>
+                <input type="time" name="start_time" required>
+            </div>
+            <div class="field-group">
+                <label>Ends At</label>
+                <input type="time" name="end_time" required>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <label>Event Description</label>
+            <textarea name="description" rows="3"></textarea>
+        </div>
+
+        <div class="form-controls">
+            <button type="button" class="cancel-trigger event-cancel">Dismiss</button>
+            <button type="submit" class="save-trigger event-save">Create Event</button>
+        </div>
+    </form>
+
+    <form id="project-entry-form" class="modal-container hidden">
+        <h2 class="form-header project-header">New Project</h2>
+        
+        <div class="field-group">
+            <label>Project Name</label>
+            <input type="text" name="name" required placeholder="e.g., Personal Website">
+        </div>
+
+        <div class="field-group">
+            <label>Project Description</label>
+            <textarea name="description" rows="3" placeholder="Briefly describe the project goals..."></textarea>
+        </div>
+
+        <div class="form-controls">
+            <button type="button" class="cancel-trigger project-cancel">Cancel</button>
+            <button type="submit" class="save-trigger project-save">Create Project</button>
+        </div>
+    </form>
+
+  </div>
+</body>
+</html>
