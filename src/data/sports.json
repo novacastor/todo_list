@@ -1,15 +1,15 @@
 {
   "project_id": "project-1735659231004",
   "items": [
-    { "type": "task", "id": "p-t1", "title": "Grocery Shopping", "description": "Milk, eggs, and veggies", "date": "2025-01-01", "start_time": "16:00", "end_time": "17:00", "priority": "high", "status": "pending" },
-    { "type": "task", "id": "p-t2", "title": "Pay Electricity Bill", "description": "Due by Friday", "date": "2025-01-02", "start_time": "08:30", "end_time": "08:45", "priority": "high", "status": "pending" },
-    { "type": "task", "id": "p-t3", "title": "Paint War-gaming Models", "description": "Finish the base coat on squad A", "date": "2025-01-03", "start_time": "19:00", "end_time": "21:00", "priority": "low", "status": "pending" },
-    { "type": "task", "id": "p-t4", "title": "Return Library Books", "description": "Avoid late fees", "date": "2025-01-04", "start_time": "10:00", "end_time": "10:30", "priority": "medium", "status": "pending" },
-    { "type": "task", "id": "p-t5", "title": "Clean Balcony", "description": "Sweep and water plants", "date": "2025-01-05", "start_time": "09:00", "end_time": "10:00", "priority": "medium", "status": "pending" },
-    { "type": "event", "id": "p-e1", "title": "Dinner with Parents", "location": "Mom's House", "date": "2025-01-01", "time": { "start": "19:00", "end": "21:00" }, "description": "New Year meal" },
-    { "type": "event", "id": "p-e2", "title": "Watch Movie", "location": "Cinema 4", "date": "2025-01-02", "time": { "start": "20:00", "end": "22:30" }, "description": "Sci-fi release" },
-    { "type": "event", "id": "p-e3", "title": "Board Game Night", "location": "Dave's Place", "date": "2025-01-03", "time": { "start": "18:00", "end": "23:00" }, "description": "Playing Catan" },
-    { "type": "event", "id": "p-e4", "title": "Hiking Trip", "location": "Blue Trail", "date": "2025-01-04", "time": { "start": "07:00", "end": "12:00" }, "description": "Fresh air and photography" },
-    { "type": "event", "id": "p-e5", "title": "Sunday Coffee", "location": "The Brew", "date": "2025-01-05", "time": { "start": "11:00", "end": "12:00" }, "description": "Reading morning news" }
+    { "type": "task", "id": "p-t1", "title": "Grocery Shopping", "description": "Milk, eggs, and veggies", "date": "2026-01-14", "start_time": "16:00", "end_time": "17:00", "priority": "high", "status": "pending" },
+    { "type": "task", "id": "p-t2", "title": "Pay Electricity Bill", "description": "Due by Friday", "date": "2026-01-08", "start_time": "08:30", "end_time": "08:45", "priority": "high", "status": "pending" },
+    { "type": "task", "id": "p-t3", "title": "Paint War-gaming Models", "description": "Finish the base coat on squad A", "date": "2026-01-22", "start_time": "19:00", "end_time": "21:00", "priority": "low", "status": "pending" },
+    { "type": "task", "id": "p-t4", "title": "Return Library Books", "description": "Avoid late fees", "date": "2026-01-29", "start_time": "10:00", "end_time": "10:30", "priority": "medium", "status": "pending" },
+    { "type": "task", "id": "p-t5", "title": "Clean Balcony", "description": "Sweep and water plants", "date": "2026-01-18", "start_time": "09:00", "end_time": "10:00", "priority": "medium", "status": "pending" },
+    { "type": "event", "id": "p-e1", "title": "Dinner with Parents", "location": "Mom's House", "date": "2026-01-07", "time": { "start": "19:00", "end": "21:00" }, "description": "New Year meal" },
+    { "type": "event", "id": "p-e2", "title": "Watch Movie", "location": "Cinema 4", "date": "2026-01-11", "time": { "start": "20:00", "end": "22:30" }, "description": "Sci-fi release" },
+    { "type": "event", "id": "p-e3", "title": "Board Game Night", "location": "Dave's Place", "date": "2026-01-25", "time": { "start": "18:00", "end": "23:00" }, "description": "Playing Catan" },
+    { "type": "event", "id": "p-e4", "title": "Hiking Trip", "location": "Blue Trail", "date": "2026-01-17", "time": { "start": "07:00", "end": "12:00" }, "description": "Fresh air and photography" },
+    { "type": "event", "id": "p-e5", "title": "Sunday Coffee", "location": "The Brew", "date": "2026-01-31", "time": { "start": "11:00", "end": "12:00" }, "description": "Reading morning news" }
   ]
 }

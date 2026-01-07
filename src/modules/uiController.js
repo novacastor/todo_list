@@ -26,8 +26,13 @@ function renderTodoList(todos, selectedProject, deleteTodo, deleteProject) {
     const heading = createMainContentSpaceHeading(selectedProject, deleteProject);
     mainContentSpace.appendChild(heading);
 
+    console.log("Rendering for Project: ", selectedProject);
+    console.log("Total Todos available: ", todos.length);
+
     const filteredTodos = todos.filter(todo => todo.project_name === selectedProject && todo.status !== 'completed');
     
+    console.log("Filtered Todos: ", filteredTodos.length);
+
     filteredTodos.forEach(todo => {
         if(todo.date !== lastDate) {
             lastDate = todo.date;

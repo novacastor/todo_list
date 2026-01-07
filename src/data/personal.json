@@ -1,15 +1,15 @@
 {
   "project_id": "project-1735659231003",
   "items": [
-    { "type": "task", "id": "s-t1", "title": "Clean Boots", "description": "Scrub mud off football boots", "date": "2025-01-02", "start_time": "20:00", "end_time": "20:30", "priority": "low", "status": "pending" },
-    { "type": "task", "id": "s-t2", "title": "Book Tennis Court", "description": "Reserve court for Saturday", "date": "2025-01-03", "start_time": "08:00", "end_time": "08:10", "priority": "high", "status": "pending" },
-    { "type": "task", "id": "s-t3", "title": "Buy Tennis Balls", "description": "Get a fresh pack of 4", "date": "2025-01-04", "start_time": "12:00", "end_time": "12:30", "priority": "medium", "status": "pending" },
-    { "type": "task", "id": "s-t4", "title": "Watch Match Highlights", "description": "Review rival team tactics", "date": "2025-01-04", "start_time": "21:00", "end_time": "22:00", "priority": "low", "status": "pending" },
-    { "type": "task", "id": "s-t5", "title": "Inflate Football", "description": "Check pressure for Sunday match", "date": "2025-01-05", "start_time": "09:00", "end_time": "09:10", "priority": "medium", "status": "pending" },
-    { "type": "event", "id": "s-e1", "title": "Football Training", "location": "East Pitch", "date": "2025-01-02", "time": { "start": "18:30", "end": "20:00" }, "description": "Passing drills" },
-    { "type": "event", "id": "s-e2", "title": "Tennis Practice", "location": "Court 5", "date": "2025-01-03", "time": { "start": "17:00", "end": "18:00" }, "description": "Backhand focus" },
-    { "type": "event", "id": "s-e3", "title": "Local League Match", "location": "Stadium B", "date": "2025-01-04", "time": { "start": "14:00", "end": "16:00" }, "description": "Quarter-finals" },
-    { "type": "event", "id": "s-e4", "title": "Coaching Session", "location": "Tennis Center", "date": "2025-01-05", "time": { "start": "08:00", "end": "09:00" }, "description": "Serve technique" },
-    { "type": "event", "id": "s-e5", "title": "Friendly Match", "location": "Community Field", "date": "2025-01-05", "time": { "start": "15:00", "end": "16:30" }, "description": "Pickup game with friends" }
+    { "type": "task", "id": "s-t1", "title": "Clean Boots", "description": "Scrub mud off football boots", "date": "2026-01-24", "start_time": "20:00", "end_time": "20:30", "priority": "low", "status": "pending" },
+    { "type": "task", "id": "s-t2", "title": "Book Tennis Court", "description": "Reserve court for Saturday", "date": "2026-01-12", "start_time": "08:00", "end_time": "08:10", "priority": "high", "status": "pending" },
+    { "type": "task", "id": "s-t3", "title": "Buy Tennis Balls", "description": "Get a fresh pack of 4", "date": "2026-01-08", "start_time": "12:00", "end_time": "12:30", "priority": "medium", "status": "pending" },
+    { "type": "task", "id": "s-t4", "title": "Watch Match Highlights", "description": "Review rival team tactics", "date": "2026-01-30", "start_time": "21:00", "end_time": "22:00", "priority": "low", "status": "pending" },
+    { "type": "task", "id": "s-t5", "title": "Inflate Football", "description": "Check pressure for Sunday match", "date": "2026-01-19", "start_time": "09:00", "end_time": "09:10", "priority": "medium", "status": "pending" },
+    { "type": "event", "id": "s-e1", "title": "Football Training", "location": "East Pitch", "date": "2026-01-07", "time": { "start": "18:30", "end": "20:00" }, "description": "Passing drills" },
+    { "type": "event", "id": "s-e2", "title": "Tennis Practice", "location": "Court 5", "date": "2026-01-22", "time": { "start": "17:00", "end": "18:00" }, "description": "Backhand focus" },
+    { "type": "event", "id": "s-e3", "title": "Local League Match", "location": "Stadium B", "date": "2026-01-15", "time": { "start": "14:00", "end": "16:00" }, "description": "Quarter-finals" },
+    { "type": "event", "id": "s-e4", "title": "Coaching Session", "location": "Tennis Center", "date": "2026-01-28", "time": { "start": "08:00", "end": "09:00" }, "description": "Serve technique" },
+    { "type": "event", "id": "s-e5", "title": "Friendly Match", "location": "Community Field", "date": "2026-01-11", "time": { "start": "15:00", "end": "16:30" }, "description": "Pickup game with friends" }
   ]
 }

@@ -1,7 +1,7 @@
 import * as UI from './uiController.js';
 import * as DOM from './domElements.js';
 import { Task, Event, Project } from './classes.js';
-import { saveTodos, saveProjects, initializeProjectStorage} from './storage.js';
+import { saveTodos, saveProjects, initializeProjectStorage, getTodos, getProjects} from './storage.js';
 import { sortByDateAndTime } from './todoManager.js';
 import demoProjectData from '../data/temp_projects.json';
 import workData from '../data/work.json';
@@ -63,7 +63,7 @@ export function initEventListeners(context) {
         
         DOM.markTodoCompletBtn.classList.add('hidden');
 
-        renderApp();
+        renderApp(projects, todos);
     });
 
     DOM.addEventBtn.addEventListener('click', (e) => {
@@ -120,7 +120,7 @@ export function initEventListeners(context) {
     });
 
     DOM.addProjectBtn.addEventListener('click', (e) => {
-       console.log('Add project Button Pressed');
+        console.log('Add project Button Pressed');
         e.preventDefault();
         DOM.projectForm.classList.remove('hidden');
         DOM.uiBackdrop.classList.remove('hidden');
@@ -139,7 +139,7 @@ export function initEventListeners(context) {
         todos.sort(sortByDateAndTime);
         saveTodos(todos);
     
-        renderApp();
+        renderApp(projects, todos);
         console.log("Task Added Successfully");
     });
 
@@ -166,7 +166,7 @@ export function initEventListeners(context) {
         todos.sort(sortByDateAndTime);
         saveTodos(todos);
     
-        renderApp();
+        renderApp(projects, todos);
         console.log("New Event Added:");
     });
 
@@ -183,7 +183,7 @@ export function initEventListeners(context) {
         const fileContent = {project_id: newProject.id, items: []};
         initializeProjectStorage(newProject.data_path, fileContent);
     
-        renderApp();
+        renderApp(projects, todos);
     
         console.log("Project Created:");
     });
@@ -197,6 +197,7 @@ export function initEventListeners(context) {
             console.log(`Switching to project: ${projectName}`);
             
             onProjectSelect(projectName);
+            renderApp(projects, todos);
         }
     });
 
@@ -207,9 +208,11 @@ export function initEventListeners(context) {
 
     DOM.loadDemoDataBtn.addEventListener('click', () => {
         const newProjects = demoProjectData.map(item => new Project(item));
+        // console.log(newProjects);
 
         const newTodos = newProjects.flatMap(project => {
             const contentData = projectContentMap[project.name];
+            // console.log(contentData);
             
             if (!contentData) {
                 console.warn(`No data found for project: ${project.name}`);
@@ -219,27 +222,29 @@ export function initEventListeners(context) {
             return contentData.items.map(item => {
                 const itemWithProject = { ...item, project_name: project.name };
                 
-                return item.status 
+                return (item.status || item.type === 'task') 
                     ? new Task(itemWithProject) 
                     : new Event(itemWithProject);
             });
         });
         projects.length = 0; 
         projects.push(...newProjects);
+        console.log(projects);
         
         todos.length = 0;
         todos.push(...newTodos);
-
         todos.sort(sortByDateAndTime);
+        console.log(todos);
 
-        saveProjects(projects);
-        saveTodos(todos);
+        //saveProjects(projects);
+        //saveTodos(todos);
 
-        todos.sort(sortByDateAndTime);
         onProjectSelect(projects[0].name)
 
         DOM.loadDemoDataBtn.classList.add('hidden');
         DOM.clearDemoDataBtn.classList.remove('hidden');
+
+        renderApp(projects, todos);
 
         console.log("Demo data loaded from imports.");
     });
@@ -248,11 +253,14 @@ export function initEventListeners(context) {
         projects.length = 0;
         todos.length = 0;
 
-        saveProjects(projects);
-        saveTodos(todos);
+        todos.push(...getTodos());
+        projects.push(...getProjects());
 
-        renderApp();
-        onProjectSelect("work");
+        //saveProjects(projects);
+        //saveTodos(todos);
+
+        renderApp(projects, todos);
+        onProjectSelect("Work");
         DOM.clearDemoDataBtn.classList.add('hidden');
     });
 }

@@ -39,9 +39,9 @@ async function initApp() {
         projects = data.map(p => new Project(p));
     }
     todos = await loadData();
-    renderApp();
+    renderApp(projects, todos);
 }
-function renderApp() {
+function renderApp(projects, todos) {
     UI.closeAllModals();
     UI.renderSidebarProjects(projects, selectedProject, onProjectSelect);
     UI.renderTodoList(todos, selectedProject, handleDeleteTodo, handleDeleteProject);
@@ -52,7 +52,7 @@ function renderApp() {
 }
 function onProjectSelect(projectName) {
     selectedProject = projectName;
-    renderApp();
+    // if(selectedProject) renderApp();
 }
 
 function handleDeleteTodo(id) {
@@ -61,7 +61,7 @@ function handleDeleteTodo(id) {
     todos.push(...filteredList);
 
     saveTodos(todos);
-    renderApp();
+    renderApp(projects, todos);
     
     console.log(`Todo ${id} deleted and UI updated`);
 }
@@ -73,14 +73,17 @@ function handleDeleteProject() {
 
     if(confirm(`Delete "${selectedProject}" and all its tasks?`)) {
         const {updatedProjects, updatedTodos} = removeProjectFromData(projects, todos, selectedProject);
-        projects = updatedProjects;
-        todos = updatedTodos;
+
+        projects.length = 0;
+        projects.push(...updatedProjects);
+        todos.length = 0;
+        todos.push(...updatedTodos);
 
         saveTodos(todos);
         saveProjects(projects);
 
         selectedProject = "Work";
-        renderApp();
+        renderApp(projects, todos);
     }
 }
 const context = {
